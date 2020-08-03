@@ -7,5 +7,5 @@ Engineering Research lab (SERL) at AUT.
 # Team
 - Essa Thaver - <a href="https://github.com/EssaThaver"> @EssaThaver </a>
 - Jullan Quevedo - <a href="https://github.com/Jullan2018"> @Jullan2018 </a>
-- Matt McLuskie - <a href="https://github.com/Maityoman"> @Maityoman </a>
+- Matt McLuskie - <a href="https://github.com/MattMcLuskie"> @MattMcLuskie </a>
 - Millan Uka - <a href="https://github.com/MillanUka"> @MillanUka </a>
