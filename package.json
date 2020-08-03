@@ -1,0 +1,12 @@
+{
+  "name": "seer",
+  "version": "0.1.0",
+  "private": false,
+  "dependencies": {
+  },
+  "scripts": {
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  }
+}
