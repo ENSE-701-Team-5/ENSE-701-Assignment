@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "description": "The backend for the application",
   "main": "index.js",
-  "scripts": {},
+  "scripts": {
+	  "start" : "node app.js"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/ENSE-701-Team-5/SEER.git"
