@@ -7,7 +7,10 @@
     "mocha": "^8.1.1"
   },
   "scripts": {
-    "test": "cd backend && npm install && mocha"
+    "test": "cd backend && npm install && mocha",
+    "frontend": "npm run start --prefix frontend",
+    "backend": "npm run start --prefix backend",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix frontend && npm run build --prefix frontend && npm install --prefix backend && npm run backend" 
   },
   "eslintConfig": {
     "extends": "react-app"
