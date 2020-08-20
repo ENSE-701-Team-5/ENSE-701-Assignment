@@ -10,9 +10,8 @@
     "test": "cd backend && npm install && mocha",
     "frontend": "npm run start --prefix frontend",
     "backend": "npm run start --prefix backend",
-    "install" : "npm install && npm install --prefix frontend && npm install --prefix backend",
-    "start" : "npm run install",
-    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false  npm start --prefix frontend && npm run backend"
+    "start" : "npm run backend",
+    "heroku-postbuild":  "cd backend && npm i --only=prod && cd ../frontend && npm i && npm i --only=dev --no-shrinkwrap && npm run build"
   },
   "eslintConfig": {
     "extends": "react-app"
