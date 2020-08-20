@@ -7,11 +7,8 @@
     "mocha": "^8.1.1"
   },
   "scripts": {
-    "test": "cd backend && npm install && mocha",
     "frontend": "cd frontend & npm start",
-    "backend": "cd backend & node app.js",
-    "start": "npm run backend",
-    "heroku-postbuild": "cd backend && npm i --only=prod && cd ../frontend && npm i && npm i --only=dev --no-shrinkwrap && npm run build"
+    "heroku-postbuild": "cd ../frontend && npm i && npm i --only=dev --no-shrinkwrap && npm run build"
   },
   "eslintConfig": {
     "extends": "react-app"
