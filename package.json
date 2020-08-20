@@ -11,7 +11,7 @@
     "frontend": "npm run start --prefix frontend",
     "backend": "npm run start --prefix backend",
     "start" : "npm run backend",
-    "heroku-postbuild":  "cd backend && npm i --only=prod && cd ../frontend && npm i && npm i --only=dev --no-shrinkwrap && npm run build"
+    "heroku-postbuild":  "npm install --prefix frontend && npm run build --prefix frontend"
   },
   "eslintConfig": {
     "extends": "react-app"
