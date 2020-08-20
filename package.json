@@ -8,10 +8,10 @@
   },
   "scripts": {
     "test": "cd backend && npm install && mocha",
-    "frontend": "npm run start --prefix frontend",
-    "backend": "npm run start --prefix backend",
-    "start" : "npm run backend",
-    "heroku-postbuild":  "cd backend && npm i --only=prod && cd ../frontend && npm i && npm i --only=dev --no-shrinkwrap && npm run build"
+    "frontend": "cd frontend & npm run start",
+    "backend": "cd backend & npm run start",
+    "start": "npm run backend",
+    "heroku-postbuild": "cd backend && npm i --only=prod && cd ../frontend && npm i && npm i --only=dev --no-shrinkwrap && npm run build"
   },
   "eslintConfig": {
     "extends": "react-app"
