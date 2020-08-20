@@ -7,14 +7,13 @@
     "mocha": "^8.1.1"
   },
   "scripts": {
-    "frontend": "cd frontend & npm start",
-    "heroku-postbuild": "cd frontend && npm i --only=dev --no-shrinkwrap && npm run build"
+    "test": "cd backend && npm install && mocha",
+    "frontend": "npm run start --prefix frontend",
+    "backend": "npm run start --prefix backend",
+    "start" : "npm run backend",
+    "heroku-postbuild":  "cd backend && npm i --only=prod && cd ../frontend && npm i && npm i --only=dev --no-shrinkwrap && npm run build"
   },
   "eslintConfig": {
     "extends": "react-app"
-  },
-  "bugs": {
-    "url": "https://github.com/ENSE-701-Team-5/SEER/issues"
-  },
-  "homepage": "https://github.com/ENSE-701-Team-5/SEER#readme"
+  }
 }
