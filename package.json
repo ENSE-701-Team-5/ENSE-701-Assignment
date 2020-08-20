@@ -8,7 +8,7 @@
   },
   "scripts": {
     "frontend": "cd frontend & npm start",
-    "heroku-postbuild": "cd ../frontend && npm i && npm i --only=dev --no-shrinkwrap && npm run build"
+    "heroku-postbuild": "cd backend && npm i --only=prod && cd ../frontend && npm i --only=dev --no-shrinkwrap && npm run build"
   },
   "eslintConfig": {
     "extends": "react-app"
