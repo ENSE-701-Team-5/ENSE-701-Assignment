@@ -3,8 +3,15 @@
   "version": "0.1.0",
   "private": false,
   "dependencies": {
+    "chai": "^4.2.0",
+    "mocha": "^8.1.1"
   },
   "scripts": {
+    "test": "cd backend && npm install && mocha",
+    "frontend": "npm run start --prefix frontend",
+    "backend": "npm run start --prefix backend",
+    "start" : "npm run backend",
+    "heroku-postbuild":  "cd backend && npm i --only=prod && cd ../frontend && npm i && npm i --only=dev --no-shrinkwrap && npm run build"
   },
   "eslintConfig": {
     "extends": "react-app"

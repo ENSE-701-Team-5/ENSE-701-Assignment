@@ -1,0 +1,26 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "The backend for the application",
+  "main": "index.js",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ENSE-701-Team-5/SEER.git"
+  },
+  "author": "Millan Uka, Essa Thaver, Jullan Quevdo, Matt McLuskie",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ENSE-701-Team-5/SEER/issues"
+  },
+  "homepage": "https://github.com/ENSE-701-Team-5/SEER",
+  "dependencies": {
+    "express": "^4.17.1",
+    "mongoose": "^5.10.2"
+  },
+  "devDependencies": {
+    "request": "^2.88.2"
+  }
+}
