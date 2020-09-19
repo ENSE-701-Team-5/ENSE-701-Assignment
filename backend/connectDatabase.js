@@ -1,10 +1,7 @@
+const {testPassword, testUsername} =  require('../config')
 const mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/seerdb', { useNewUrlParser: true });
-
-const db = mongoose.connection;
-db.on('error', console.error.bind(console, 'connection error:'));
-db.once('open', function () {
-  console.log("connected!")
-});
-
-module.exports = { db }
+const connection = "mongodb+srv://" + testUsername +":" + testPassword + "@seer.qz7vq.mongodb.net/SEER?retryWrites=true&w=majority";
+console.log(connection)
+mongoose.connect(connection,{ useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false})
+    .then(() => console.log("Database Connected Successfully"))
+    .catch(err => console.log(err));
