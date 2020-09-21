@@ -23,6 +23,5 @@
   },
   "devDependencies": {
     "request": "^2.88.2"
-  },
-  "proxy": "http://localhost:5000"
+  }
 }
