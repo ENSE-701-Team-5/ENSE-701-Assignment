@@ -1,6 +1,7 @@
 import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import NavigationBar from "./Components/NavigationBar";
+import Home from "./Components/Home";
 import About from "./Components/About";
 import Login from "./Components/Login";
 import Register from "./Components/Register";
@@ -40,11 +41,4 @@ export default function App() {
   );
 }
 
-function Home() {
-  return (
-    <div>
-      <h2> Home </h2>
-    <p> This is the home</p>
-    </div>
-  );
-}
+
