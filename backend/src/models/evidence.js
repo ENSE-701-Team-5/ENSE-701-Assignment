@@ -1,38 +1,17 @@
-const mongoose = require("mongoose");
+const { mongoose } = require("../Database");
 const Schema = mongoose.Schema;
+const Review = require("./Review").schema;
+const ResearchDesign = require("./ResearchDesign").schema;
 
 const evidenceSchema = new Schema({
   title: {
     type: String,
-    required: true,
   },
-  authors: {
-    type: String,
-    required: false,
+  reviews: {
+    type: Review,
   },
-  journal: {
-    type: String,
-    required: false,
-  },
-  year: {
-    type: Number,
-    required: false,
-  },
-  volume: {
-    type: Number,
-    required: false,
-  },
-  number: {
-    type: Number,
-    required: false,
-  },
-  pages: {
-    type: String,
-    required: false,
-  },
-  month: {
-    type: String,
-    required: false,
+  researchDesign: {
+    type: ResearchDesign,
   },
 });
-module.exports = mongoose.model("Evidence", userSchema, "Evidence");
+module.exports = mongoose.model("Evidence", evidenceSchema);

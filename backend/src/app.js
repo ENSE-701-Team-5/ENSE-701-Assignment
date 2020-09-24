@@ -22,6 +22,8 @@ if (process.env.NODE_ENV === "production") {
 
 router = express.Router();
 router.use('/evidence', require('./routes/Evidence'));
+router.use('/search', require('./routes/Search'));
+router.use('/submit', require('./routes/Submit'));
 app.use('/api', router);
 
 app.listen(PORT, () => {
