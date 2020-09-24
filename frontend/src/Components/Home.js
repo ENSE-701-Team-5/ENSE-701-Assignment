@@ -12,6 +12,9 @@ export default function Home() {
         <div class="search">
            <input type="text" name="search" id="search" placeholder="Search for evidence" required></input>
         </div>
+        <div class="advanced-search">
+            <label>Advanced Search</label>
+        </div>
         <button type="submit"><i class="fa fa-search"></i></button>
     </div>
     );
