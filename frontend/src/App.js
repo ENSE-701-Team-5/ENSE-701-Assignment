@@ -7,6 +7,7 @@ import Login from "./Components/Login";
 import Register from "./Components/Register";
 import Terms from "./Components/Terms";
 import Privacy from "./Components/Privacy";
+import Submit from "./Components/Submit/Submit";
 import "./App.css";
 
 export default function App() {
@@ -24,6 +25,9 @@ export default function App() {
             </Route>
             <Route path="/about">
               <About />
+            </Route>
+            <Route path="/submit">
+              <Submit />
             </Route>
             <Route path="/register">
               <Register />
