@@ -68,5 +68,5 @@ async function submitEvidence(req, res) {
   // console.log(article);
   // await evidenceCollection.insertMany([article]);
 }
-
+mongoose.set('debug', true);
 module.exports = { mongoose, connection, searchEvidence, submitEvidence };
