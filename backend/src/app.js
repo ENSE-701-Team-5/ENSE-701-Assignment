@@ -1,14 +1,15 @@
 const path = require("path");
 const express = require("express");
 const app = express();
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+const bodyParser = require('body-parser');
+app.use(bodyParser.json({limit: '20mb'}));
+app.use(bodyParser.urlencoded({limit: '20mb', extended: true}));
 
 const PORT = process.env.PORT || 5000;
 
 const buildPath = path.join(__dirname, "..", "build");
 app.use(express.static(buildPath));
-
+app.use
 if (process.env.NODE_ENV === "production") {
   // Exprees will serve up production assets
   app.use(express.static("../frontend/build"));
@@ -21,11 +22,13 @@ if (process.env.NODE_ENV === "production") {
 }
 
 router = express.Router();
-router.use('/evidence', require('./routes/Evidence'));
-router.use('/search', require('./routes/Search'));
-router.use('/submit', require('./routes/Submit'));
-app.use('/api', router);
+router.use("/evidence", require("./routes/Evidence"));
+router.use("/search", require("./routes/Search"));
+router.use("/submit", require("./routes/Submit"));
+app.use("/api", router);
 
 app.listen(PORT, () => {
-    console.log(`server started on port ${PORT}`);
-  });
+  console.log(`server started on port ${PORT}`);
+});
+
+

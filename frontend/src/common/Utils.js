@@ -11,3 +11,19 @@ export const RESEARCH_METHOS = {
   INTERVIEW: "Interview",
   SURVEY: "Survey",
 };
+export function submitEvidenceData(jsonData) {
+  fetch("/api/submit/", {
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+    method: "POST",
+    body: JSON.stringify(jsonData),
+  })
+    .then(function (res) {
+      console.log(res);
+    })
+    .catch(function (res) {
+      console.log(res);
+    });
+}

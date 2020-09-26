@@ -19,6 +19,10 @@ const evidenceSchema = new Schema({
   doi: {
     type: String,
   },
+  file: {
+    data: Buffer,
+    contextType: String
+  },
   submittedDate: {
     type: Date,
   },

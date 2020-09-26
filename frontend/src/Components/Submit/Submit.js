@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { EVIDENCE_TYPES } from "../../common/Utils";
 import ArticleForm from "./ArticleForm";
+import ProceedingsForm from "./ProceedingsForm";
 
 export default function Submit() {
   const [currentEvidenceType, setEvidenceType] = useState("");
@@ -40,7 +41,7 @@ export default function Submit() {
       case EVIDENCE_TYPES[0].name:
         return <ArticleForm onChange={(handleFieldChange)}/>
       case EVIDENCE_TYPES[1].name:
-        return <React.Fragment></React.Fragment>
+        return <ProceedingsForm />
       case EVIDENCE_TYPES[2].name:
         return <React.Fragment></React.Fragment>
       default:

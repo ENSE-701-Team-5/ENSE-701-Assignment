@@ -1,25 +1,32 @@
 import React, { useState } from "react";
 import Author from "./Author";
 import "./Submit.css";
-import { EVIDENCE_TYPES } from "../../common/Utils";
+import { EVIDENCE_TYPES, submitEvidenceData } from "../../common/Utils";
 export default function EvidenceForm() {
   const [title, setTitle] = useState("");
-  const [authors, setAuthors] = useState(["Kearney"]);
+  const [authors, setAuthors] = useState([]);
   const [year, setYear] = useState(2020);
-  const [month, setMonth] = useState("December");
+  const [month, setMonth] = useState("");
   const [doi, setDoi] = useState("");
   const [journal, setJournal] = useState("");
   const [volume, setVolume] = useState(0);
   const [number, setNumber] = useState(0);
   const [pages, setPages] = useState("");
+  const [file, setFile] = useState(null);
+  const [fileExtension, setFileExtension] = useState("");
   return (
     <div>
       <label htmlFor={"title"} className={"field"}>
         Title:
       </label>
-      <input type={"text"} id={"title"} className={"titleInput"} onChange={(e) => {
-        setTitle(e.target.value);
-      }}></input>
+      <input
+        type={"text"}
+        id={"title"}
+        className={"titleInput"}
+        onChange={(e) => {
+          setTitle(e.target.value);
+        }}
+      ></input>
       <label htmlFor={"authors"}>
         <b>Authors:</b>
       </label>
@@ -123,6 +130,17 @@ export default function EvidenceForm() {
             }}
           ></input>
         </div>
+
+        <label htmlFor="pdf">Upload File</label>
+        <input
+          type="file"
+          id="file"
+          name="file"
+          required
+          onChange={(e) => {
+            readFile(e);
+          }}
+        ></input>
         <button
           className={"submit"}
           onClick={() => {
@@ -135,33 +153,58 @@ export default function EvidenceForm() {
     </div>
   );
 
+  async function readFile(e) {
+
+    const file = e.target.files[0];
+    if(file == null) return;
+    var extenstion = file.name.substr(
+      file.name.lastIndexOf(".") + 1,
+      file.name.length
+    );
+    const reader = new FileReader();
+    
+    if (extenstion != "none") {
+      var data = await new Promise((resolve, reject) => {
+        reader.onload = (event) => {
+          resolve(event.target.result);
+        };
+
+        reader.onerror = (err) => {
+          reject(err);
+        };
+
+        if (extenstion == "pdf") {
+          reader.readAsBinaryString(file);
+        } else if (extenstion == "bib") {
+          reader.readAsText(file);
+        }
+
+      }, console.log(file));
+      setFile(data);
+      setFileExtension(extenstion);
+    } else {
+      alert("Invalid file type! Either upload a bibtex or pdf file.")
+    }
+  }
   function submitArticle() {
-    var jsonData = 
-    {
-      "type" : EVIDENCE_TYPES[0].name,
-      "title" : title,
-      "authors" : authors,
-      "year" : year,
-      "month" : month,
-      "doi" : doi,
-      "journal" : journal,
-      "volume" : volume,
-      "pages" : pages
-    };
-    console.log(jsonData)
-    fetch("/api/submit/", {
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
+    var jsonData = {
+      type: EVIDENCE_TYPES[0].name,
+      title: title,
+      number: number,
+      authors: authors,
+      year: year,
+      month: month,
+      doi: doi,
+      journal: journal,
+      volume: volume,
+      pages: pages,
+      file: {
+        data: file,
+        contextType: fileExtension,
       },
-      method: "POST",
-      body: JSON.stringify(jsonData),
-    })
-      .then(function (res) {
-        console.log(res);
-      })
-      .catch(function (res) {
-        console.log(res);
-      });
+      submittedDate: new Date()
+    };
+    console.log(jsonData);
+    submitEvidenceData(jsonData);
   }
 }

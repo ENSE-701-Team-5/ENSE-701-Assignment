@@ -21,15 +21,7 @@ const connection = mongoose.connection;
 
 connection.on("error", console.error.bind(console, "connection error:"));
 connection.once("open", async function () {
-  const evidenceCollection = connection.db.collection("Evidence");
-  // collection.find().toArray((err, evidence) => {
-  //   if (err) {
-  //     console.log(err);
-  //   }
-  //   console.log(evidence);
-  // });
-
-
+  console.log("Connected!");
 });
 
 async function searchEvidence(res, text) {
@@ -47,44 +39,23 @@ async function searchEvidence(res, text) {
 }
 
 async function submitEvidence(req, res) {
-  console.log(req.body);
-
   var evidence = null;
-  switch(req.body.type) {
+  switch (req.body.type) {
     case "Article":
       evidence = await createArticleEvidence(req.body);
   }
   const evidenceCollection = connection.db.collection("Evidence");
 
-  if(evidence != null) {
+  if (evidence != null) {
     await evidenceCollection.insertMany([evidence]);
   } else {
     console.log("Evidence not found.");
   }
-    // const Article = require("./models/Article");
-  // const ResearchDesign = require("./models/ResearchDesign");
-
-  // var researchDesign = await ResearchDesign.create({
-  //   researchMethod: ["Case Study"],
-  //   researchMetric: "Test",
-  //   researchParticipants: ["Undergraduates"],
-  // });
-
-  // var article = await Article.create({
-  //   authors: ["Dell", "New"],
-  //   title: "Implications of Test-Driven Development A Pilot Study",
-  //   year: 2003,
-  //   pages: "1-2",
-  //   month: "aug",
-  //   researchDesign: researchDesign,
-  // });
-  // console.log(article);
-  // await evidenceCollection.insertMany([article]);
 }
 
 async function createArticleEvidence(data) {
   const Article = require("./models/Article");
   return await Article.create(data);
 }
-mongoose.set('debug', true);
+
 module.exports = { mongoose, connection, searchEvidence, submitEvidence };
