@@ -7,9 +7,6 @@ const articleSchema = Evidence.discriminator(
     journal: {
       type: String,
     },
-    year: {
-      type: Number,
-    },
     volume: {
       type: Number,
     },

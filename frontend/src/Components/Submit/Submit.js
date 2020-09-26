@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { EVIDENCE_TYPES } from "../../common/Utils";
 import ArticleForm from "./ArticleForm";
-import BookForm from "./BookForm";
 
 export default function Submit() {
   const [currentEvidenceType, setEvidenceType] = useState("");
+  const [evidenceData, setEvidenceData] = useState({title: "", authors: []});
   const handleFieldChange = (fieldId, value) => {
     console.log(fieldId)
     console.log(value)
@@ -42,7 +42,7 @@ export default function Submit() {
       case EVIDENCE_TYPES[1].name:
         return <React.Fragment></React.Fragment>
       case EVIDENCE_TYPES[2].name:
-        return <BookForm />
+        return <React.Fragment></React.Fragment>
       default:
         return <React.Fragment></React.Fragment>
     }
