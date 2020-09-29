@@ -1,4 +1,4 @@
-const { mongoose } = require("../Database");
+const { mongoose } = require("../app");
 const Evidence = require("./Evidence");
 const Schema = mongoose.Schema
 const articleSchema = Evidence.discriminator(

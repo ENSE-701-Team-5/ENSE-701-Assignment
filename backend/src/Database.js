@@ -1,33 +1,30 @@
-const {
-  testPassword,
-  testUsername,
-  adminUsername,
-  adminPassword,
-} = require("../../config");
-const mongoose = require("mongoose");
-const connectionURL =
-  "mongodb+srv://" +
-  adminUsername +
-  ":" +
-  adminPassword +
-  "@seer.qz7vq.mongodb.net/SEER?retryWrites=true&w=majority";
-mongoose.connect(connectionURL, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-  useFindAndModify: false,
-});
+function connectToDatabase(username, password) {
+  const mongoose = require("mongoose");
+  const connectionURL =
+    "mongodb+srv://" +
+    username +
+    ":" +
+    password +
+    "@seer.qz7vq.mongodb.net/SEER?retryWrites=true&w=majority";
+  mongoose.connect(connectionURL, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useFindAndModify: false,
+  });
 
-const connection = mongoose.connection;
+  const connection = mongoose.connection;
 
-connection.on("error", console.error.bind(console, "connection error:"));
-connection.once("open", async function () {
-  console.log("Connected!");
-});
+  connection.on("error", console.error.bind(console, "connection error:"));
+  connection.once("open", async function () {
+    console.log("Connected!");
+  });
 
-async function searchEvidence(res, text) {
+  return mongoose;
+}
+
+function searchEvidence(db, res, text) {
   var regex = new RegExp(text, "i"); // 'i' makes it case insensitive
-  const collection = connection.db.collection("Evidence");
-
+  const collection = db.collection("Evidence");
   collection.find({ $or: [{ title: regex }] }).toArray((err, evidence) => {
     if (err) {
       evidence = { message: "An error occured" };
@@ -38,13 +35,13 @@ async function searchEvidence(res, text) {
   });
 }
 
-async function submitEvidence(req, res) {
+async function submitEvidence(db, req) {
   var evidence = null;
   switch (req.body.type) {
     case "Article":
       evidence = await createArticleEvidence(req.body);
   }
-  const evidenceCollection = connection.db.collection("Evidence");
+  const evidenceCollection = db.collection("Evidence");
 
   if (evidence != null) {
     await evidenceCollection.insertMany([evidence]);
@@ -58,4 +55,4 @@ async function createArticleEvidence(data) {
   return await Article.create(data);
 }
 
-module.exports = { mongoose, connection, searchEvidence, submitEvidence };
+module.exports = { searchEvidence, submitEvidence, connectToDatabase };

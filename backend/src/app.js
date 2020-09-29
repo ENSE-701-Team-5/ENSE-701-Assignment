@@ -1,15 +1,19 @@
 const path = require("path");
 const express = require("express");
 const app = express();
-const bodyParser = require('body-parser');
-app.use(bodyParser.json({limit: '20mb'}));
-app.use(bodyParser.urlencoded({limit: '20mb', extended: true}));
+const bodyParser = require("body-parser");
+const { connectToDatabase } = require("./Database");
+//Currently giving admin rights in-order to submit evidence. They do not have full control over the database though
+const { adminUsername, adminPassword } = require("../../config");
+
+app.use(bodyParser.json({ limit: "20mb" }));
+app.use(bodyParser.urlencoded({ limit: "20mb", extended: true }));
 
 const PORT = process.env.PORT || 5000;
 
 const buildPath = path.join(__dirname, "..", "build");
 app.use(express.static(buildPath));
-app.use
+app.use;
 if (process.env.NODE_ENV === "production") {
   // Exprees will serve up production assets
   app.use(express.static("../frontend/build"));
@@ -31,4 +35,6 @@ app.listen(PORT, () => {
   console.log(`server started on port ${PORT}`);
 });
 
-
+const mongoose = connectToDatabase(adminUsername, adminPassword);
+const connection = mongoose.connection;
+module.exports = { mongoose, connection };
