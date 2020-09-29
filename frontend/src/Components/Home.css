@@ -21,7 +21,7 @@ button[type="submit"]
 input[type=text]
  {
     background-color: white;
-    color:white;
+    color:black;
     font-size: 18px;
     border-radius: 20px;
     width: 10px;
