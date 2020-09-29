@@ -1,14 +1,7 @@
-html
-{
-    background-color: #2e2e2d;
-}
-h2
-{
-    color:white;
-}
+
 .search
 {
-    width:300px;
+    width:301px;
 }
 button[type="submit"]
 {
@@ -16,11 +9,21 @@ button[type="submit"]
     border-radius: 15px;
     width: 70px;
 }
+.advanced-search
+{
+    background-color: #d4d4d4;
+    padding-top: 10px;
+    padding-bottom: 25px;
+    padding-left: 15px;
+    border-radius: 20px;
+    width: 500px;
+}
 input[type=text]
  {
-    background-color: #2e2e2d;
+    background-color: white;
     color:white;
     font-size: 18px;
+    border-radius: 20px;
     width: 10px;
     -webkit-transition: width 0.4s ease-in-out;
     transition: width 0.4s ease-in-out;

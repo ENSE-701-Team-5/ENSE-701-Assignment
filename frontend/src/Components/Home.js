@@ -8,11 +8,15 @@ export default function Home() {
     <div>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"></link>
         <h2>Welcome To The SEER Home Page</h2> 
-
+        <form>
         <div class="search">
            <input type="text" name="search" id="search" placeholder="Search for evidence" required></input>
         </div>
+        <div class="advanced-search">
+            <label>Advanced Search</label>
+        </div>
         <button type="submit"><i class="fa fa-search"></i></button>
+        </form>
     </div>
     );
 
