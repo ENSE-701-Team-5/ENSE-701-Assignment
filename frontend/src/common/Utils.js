@@ -11,6 +11,7 @@ export const RESEARCH_METHOS = {
   INTERVIEW: "Interview",
   SURVEY: "Survey",
 };
+
 export function submitEvidenceData(jsonData) {
   fetch("/api/submit/", {
     headers: {
@@ -26,4 +27,57 @@ export function submitEvidenceData(jsonData) {
     .catch(function (res) {
       console.log(res);
     });
+}
+
+export async function readFile(e) {
+  const file = e.target.files[0];
+  if (file == null) return;
+  var extenstion = file.name.substr(
+    file.name.lastIndexOf(".") + 1,
+    file.name.length
+  );
+  const reader = new FileReader();
+
+  if (extenstion != "none") {
+    var data = await new Promise((resolve, reject) => {
+      reader.onload = (event) => {
+        resolve(event.target.result);
+      };
+
+      reader.onerror = (err) => {
+        reject(err);
+      };
+
+      if (extenstion == "pdf") {
+        reader.readAsBinaryString(file);
+      } else if (extenstion == "bib") {
+        reader.readAsText(file);
+      }
+    }, console.log(file));
+    return [data, extenstion]
+  } else {
+    alert("Invalid file type! Either upload a bibtex or pdf file.");
+  }
+}
+
+export function submitArticle() {
+  // var jsonData = {
+  //   type: EVIDENCE_TYPES[0].name,
+  //   title: title,
+  //   number: number,
+  //   authors: authors,
+  //   year: year,
+  //   month: month,
+  //   doi: doi,
+  //   journal: journal,
+  //   volume: volume,
+  //   pages: pages,
+  //   file: {
+  //     data: file,
+  //     contextType: fileExtension,
+  //   },
+  //   submittedDate: new Date(),
+  // };
+  // console.log(jsonData);
+  // submitEvidenceData(jsonData);
 }

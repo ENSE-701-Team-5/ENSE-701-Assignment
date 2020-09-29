@@ -2,29 +2,46 @@ import React, { useState } from "react";
 import "./Submit.css";
 export default function Author(props) {
   const [author, setAuthor] = useState(props.author);
-  const [authors, setAuthors] = useState(props.authors);
+  const [evidenceData, setEvidenceData] = useState(props.evidenceData);
+  console.log(evidenceData)
   return (
     <div>
       <label htmlFor={author}>Author: </label>
       <input
         type={"text"}
         className={"authorInput"}
-        id={author}
+        id={props.index}
         onChange={(e) => {
-          changeAuthor(e.target.value);
+          changeAuthor(e.target.value, props.index);
         }}
       ></input>
-      <button className={"removeButton"} onClick={(e) => {}}>
+      <button className={"removeButton"} onClick={(e) => {
+        removeAuthor(props.index)
+      }}>
         Remove
       </button>
     </div>
   );
 
-  function changeAuthor(value) {
-    var array = authors;
-    var index = array.indexOf(author);
+  function changeAuthor(value, index) {
+    var array = evidenceData.authors;
+    array[index] = value
     setAuthor(value);
-    array[index] = value;
-    setAuthors(array);
+    var newData = evidenceData;
+    newData.authors = array;
+    setEvidenceData(newData);
+  }
+
+  function removeAuthor(value) {
+    console.log(value);
+    var array = [];
+    for(var i =0; i < evidenceData.authors.length; i++) {
+      if(i != value) {
+        array.push(evidenceData.authors[i]);
+      }
+    }
+    var newData = evidenceData;
+    newData.authors = array;
+    setEvidenceData(evidenceData);
   }
 }

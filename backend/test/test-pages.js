@@ -12,5 +12,6 @@ describe("database connectivity test", function () {
   it("connects to database", function () {
     const CONNECTED_STATE = 2;
     assert.equal(connection.readyState, CONNECTED_STATE);
+    connection.close();
   });
 });

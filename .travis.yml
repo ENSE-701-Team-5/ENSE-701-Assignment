@@ -3,3 +3,7 @@ node_js:
   - 12.16.1
 before_install:
   - npm i -g npm@6.13.4
+env:
+  global:
+    TEST_USERNAME=Test
+    TEST_PASSWORD=32TcQstK0lO3ORTG

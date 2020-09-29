@@ -6,10 +6,7 @@ import ProceedingsForm from "./ProceedingsForm";
 export default function Submit() {
   const [currentEvidenceType, setEvidenceType] = useState("");
   const [evidenceData, setEvidenceData] = useState({title: "", authors: []});
-  const handleFieldChange = (fieldId, value) => {
-    console.log(fieldId)
-    console.log(value)
-  }; 
+
   return (
     <div>
       <h2>Submit</h2>
@@ -17,7 +14,7 @@ export default function Submit() {
           <h4>Evidence Type: {currentEvidenceType}</h4>
           {EVIDENCE_TYPES.map((data, key) => {
             return (
-              <React.Fragment>
+              <React.Fragment key={key}>
                 <span
                   className={"evidenceType"}
                   onClick={() => {
@@ -39,11 +36,11 @@ export default function Submit() {
     console.log(currentEvidenceType)
     switch (currentEvidenceType) {
       case EVIDENCE_TYPES[0].name:
-        return <ArticleForm onChange={(handleFieldChange)}/>
+        return <ArticleForm evidenceData={evidenceData}/>
       case EVIDENCE_TYPES[1].name:
-        return <ProceedingsForm />
+        return <ProceedingsForm evidenceData={evidenceData}/>
       case EVIDENCE_TYPES[2].name:
-        return <React.Fragment></React.Fragment>
+        return <React.Fragment ></React.Fragment>
       default:
         return <React.Fragment></React.Fragment>
     }
