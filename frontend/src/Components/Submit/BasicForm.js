@@ -6,17 +6,18 @@ export default function BasicForm(props) {
   const [evidenceData, setEvidenceData] = useState(props.evidenceData);
   return (
     <div>
-      <label htmlFor={"title"} className={"field"}>
+      <label htmlFor={"title"}>
         Title:
       </label>
       <input
         type={"text"}
         id={"title"}
         className={"titleInput"}
+        value={evidenceData.title}
         onChange={(e) => {
-          var newData = evidenceData;
-          newData.title = e.target.value;
-          setEvidenceData(newData);
+              var newData = evidenceData;
+              newData.title = e.target.value;
+              setEvidenceData(newData);
         }}
       ></input>
       <label htmlFor={"authors"}>
@@ -53,6 +54,7 @@ export default function BasicForm(props) {
             type={"number"}
             id={"year"}
             className={"titleInput"}
+            value={evidenceData.year}
             onChange={(e) => {
               var newData = evidenceData;
               newData.year = e.target.value;
@@ -66,6 +68,7 @@ export default function BasicForm(props) {
             type={"text"}
             id={"month"}
             className={"titleInput"}
+            value={evidenceData.month}
             onChange={(e) => {
               var newData = evidenceData;
               newData.month = e.target.value;
@@ -79,6 +82,7 @@ export default function BasicForm(props) {
             type={"text"}
             id={"doi"}
             className={"titleInput"}
+            value={evidenceData.doi}
             onChange={(e) => {
               var newData = evidenceData;
               newData.doi = e.target.value;
@@ -86,7 +90,7 @@ export default function BasicForm(props) {
             }}
           ></input>
         </div>
-        <label htmlFor="pdf">Upload File</label>
+        <label htmlFor="file">Upload File</label>
         <input
           type="file"
           id="file"
