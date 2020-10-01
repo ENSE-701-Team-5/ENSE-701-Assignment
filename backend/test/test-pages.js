@@ -1,5 +1,5 @@
 var assert = require("assert");
-const { connection } = require("../src/app");
+// const { connection } = require("../src/app");
 
 describe("Simple String Test", function () {
   it("should return number of characters in a string", function () {
