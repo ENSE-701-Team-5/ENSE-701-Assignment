@@ -12,7 +12,9 @@ export const RESEARCH_METHOS = {
   SURVEY: "Survey",
 };
 
-export function submitEvidenceData(jsonData) {
+export function submitEvidenceData(jsonData, evidenceType) {
+  jsonData.submittedDate = new Date();
+  jsonData.type = evidenceType;
   fetch("/api/submit/", {
     headers: {
       Accept: "application/json",
@@ -58,26 +60,4 @@ export async function readFile(e) {
   } else {
     alert("Invalid file type! Either upload a bibtex or pdf file.");
   }
-}
-
-export function submitArticle() {
-  // var jsonData = {
-  //   type: EVIDENCE_TYPES[0].name,
-  //   title: title,
-  //   number: number,
-  //   authors: authors,
-  //   year: year,
-  //   month: month,
-  //   doi: doi,
-  //   journal: journal,
-  //   volume: volume,
-  //   pages: pages,
-  //   file: {
-  //     data: file,
-  //     contextType: fileExtension,
-  //   },
-  //   submittedDate: new Date(),
-  // };
-  // console.log(jsonData);
-  // submitEvidenceData(jsonData);
 }

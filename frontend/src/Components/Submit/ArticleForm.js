@@ -2,21 +2,20 @@ import React, { useState } from "react";
 import "./Submit.css";
 import BasicForm from "./BasicForm";
 export default function EvidenceForm(props) {
-  const [evidenceData, setEvidenceData] = useState(props.evidenceData);
   return (
     <div>
-      <BasicForm evidenceData={evidenceData} />
+      <BasicForm evidenceData={props.evidenceData} setEvidenceData={props.setEvidenceData}/>
       <div>
         <label htmlFor={"journal"}>Journal:</label>
         <input
           type={"text"}
           id={"journal"}
           className={"titleInput"}
-          value={evidenceData.journal}
+          value={props.evidenceData.journal}
           onChange={(e) => {
-            var newData = evidenceData;
+            var newData = props.evidenceData;
             newData.journal = e.target.value;
-            setEvidenceData(newData);
+            props.setEvidenceData(newData);
           }}
         ></input>
       </div>
@@ -26,11 +25,11 @@ export default function EvidenceForm(props) {
           type={"number"}
           id={"volume"}
           className={"titleInput"}
-          value={evidenceData.volume}
+          value={props.evidenceData.volume}
           onChange={(e) => {
-            var newData = evidenceData;
+            var newData = props.evidenceData;
             newData.volume = e.target.value;
-            setEvidenceData(newData);
+            props.setEvidenceData(newData);
           }}
         ></input>
       </div>
@@ -40,11 +39,11 @@ export default function EvidenceForm(props) {
           type={"number"}
           id={"number"}
           className={"titleInput"}
-          value={evidenceData.number}
+          value={props.evidenceData.number}
           onChange={(e) => {
-            var newData = evidenceData;
+            var newData = props.evidenceData;
             newData.number = e.target.value;
-            setEvidenceData(newData);
+            props.setEvidenceData(newData);
           }}
         ></input>
       </div>
@@ -54,23 +53,14 @@ export default function EvidenceForm(props) {
           type={"text"}
           id={"pages"}
           className={"titleInput"}
-          value={evidenceData.pages}
+          value={props.evidenceData.pages}
           onChange={(e) => {
-            var newData = evidenceData;
+            var newData = props.evidenceData;
             newData.pages = e.target.value;
-            setEvidenceData(newData);
+            props.setEvidenceData(newData);
           }}
         ></input>
       </div>
-      <button
-        className={"submit"}
-        onClick={() => {
-          //submitArticle();
-          console.log(evidenceData);
-        }}
-      >
-        Submit
-      </button>
     </div>
   );
 }
