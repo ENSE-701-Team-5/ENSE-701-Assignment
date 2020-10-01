@@ -4,7 +4,7 @@ const app = express();
 const bodyParser = require("body-parser");
 const { connectToDatabase } = require("./Database");
 //Currently giving admin rights in-order to submit evidence. They do not have full control over the database though
-const { adminUsername, adminPassword } = require("../../config");
+const { testUsername, testPassword } = require("../../config");
 
 app.use(bodyParser.json({ limit: "20mb" }));
 app.use(bodyParser.urlencoded({ limit: "20mb", extended: true }));
@@ -35,6 +35,6 @@ app.listen(PORT, () => {
   console.log(`server started on port ${PORT}`);
 });
 
-const mongoose = connectToDatabase(adminUsername, adminPassword);
+const mongoose = connectToDatabase(testUsername, testPassword);
 const connection = mongoose.connection;
 module.exports = { mongoose, connection };
