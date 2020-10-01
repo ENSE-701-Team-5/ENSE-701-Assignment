@@ -1,13 +1,7 @@
-
 .search
 {
-    width:301px;
-}
-button[type="submit"]
-{
-    background-color: #7c7c7c;
-    border-radius: 15px;
-    width: 70px;
+    width:350px;
+    padding-bottom: 20px;
 }
 .advanced-search
 {
@@ -17,6 +11,7 @@ button[type="submit"]
     padding-left: 15px;
     border-radius: 20px;
     width: 500px;
+    
 }
 input[type=text]
  {

@@ -14,7 +14,6 @@ export default function Search(props) {
         <div class="advanced-search">
             <label>Advanced Search</label>
         </div>
-        <button type="submit"><i class="fa fa-search"></i></button>
         </form>
         <SearchResults searchQuery={searchQuery}/>
     </div>);
