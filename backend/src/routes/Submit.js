@@ -3,7 +3,8 @@ const router = express.Router();
 const { submitEvidence } = require("../Database");
 
 router.post("/", (req, res) => {
-  submitEvidence(req, res);
+  const { connection } = require("../app");
+  submitEvidence(connection, req);
 });
 
 module.exports = router;

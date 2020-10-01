@@ -1,0 +1,24 @@
+.removeButton {
+    background-color: red;
+    max-width: 10%;
+    max-height:5%;
+}
+
+.authorInput {
+    max-width: 50%;
+    padding-right: 5px;
+    color: black;
+    margin-right: 5%;
+}
+
+.titleInput {
+    max-width: 95%;
+}
+
+input[type=text] {
+    color: black;
+}
+
+.addAuthorButton {
+    max-width: 10%;
+}

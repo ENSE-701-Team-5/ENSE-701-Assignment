@@ -1,10 +1,10 @@
 const express = require("express");
 const router = express.Router();
-const { searchEvidence } = require("../Database");
+const { searchEvidence} = require("../Database");
 
 router.get("/:query", (req, res) => {
-  console.log(req.params.query);
-  searchEvidence(res, req.params.query);  
+  const { connection } = require("../app");
+  searchEvidence(connection.db, res, req.params.query);  
 });
 
 module.exports = router;

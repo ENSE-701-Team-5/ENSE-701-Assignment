@@ -6,6 +6,7 @@ export default function Login() {
     <div>
       <h2>Login</h2>
       <div className="container">
+        <form>
         <label for="uname">
           <b>Username</b>
         </label>
@@ -26,6 +27,7 @@ export default function Login() {
           <input type="checkbox" checked="checked" name="remember" /> Remember
           me
         </label>
+        </form>
       </div>
     </div>
   );
