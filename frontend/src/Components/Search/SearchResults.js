@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-
+import Result from "./Result";
 export default function SearchResults(props) {
     const { searchQuery } = props;
     const [searchResults, setSearchResults] = useState([]);
@@ -12,11 +12,8 @@ export default function SearchResults(props) {
         </button>
         {(searchResults === undefined) ? <div></div> : searchResults.map((data, key) => {
           return (
-            <React.Fragment key={key}>
-            <div>
-                <h4>{data.title}</h4>
-            </div>
-            </React.Fragment>
+            <Result key={key} data={data}>
+            </Result>
           );
         })}
         </div>

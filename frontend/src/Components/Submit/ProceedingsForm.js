@@ -1,18 +1,22 @@
-import React, { useState } from "react";
+import React from "react";
 import "./Submit.css";
 import BasicForm from "./BasicForm";
 export default function ProceedingsForm(props) {
-  const [evidenceData, setEvidenceData] = useState(props.evidenceData);
   return (
     <div>
-      <BasicForm evidenceData={evidenceData} />
-      <button
-        className={"submit"}
-        onClick={() => {
-        }}
-      >
-        Submit
-      </button>
+      <BasicForm evidenceData={props.evidenceData} setEvidenceData={props.setEvidenceData}/>
+      <label htmlFor={"publisher"}>Publisher:</label>
+        <input
+          type={"text"}
+          id={"publisher"}
+          className={"titleInput"}
+          value={props.evidenceData.publisher}
+          onChange={(e) => {
+            var newData = props.evidenceData;
+            newData.publisher = e.target.value;
+            props.setEvidenceData(newData);
+          }}
+        ></input>
     </div>
   );
 }

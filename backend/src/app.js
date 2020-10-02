@@ -5,7 +5,7 @@ var cors = require('cors')
 const bodyParser = require("body-parser");
 const { connectToDatabase } = require("./Database");
 //Currently giving admin rights in-order to submit evidence. They do not have full control over the database though
-const { testUsername, testPassword } = require("../../config");
+const { adminUsername, adminPassword, testUsername, testPassword } = require("../../config");
 
 app.use(cors())
 app.use(bodyParser.json({ limit: "20mb" }));
@@ -37,6 +37,6 @@ app.listen(PORT, () => {
   console.log(`server started on port ${PORT}`);
 });
 
-const mongoose = connectToDatabase(testUsername, testPassword);
+const mongoose = connectToDatabase(adminUsername, adminPassword);
 const connection = mongoose.connection;
 module.exports = { mongoose, connection };

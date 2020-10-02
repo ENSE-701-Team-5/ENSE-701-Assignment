@@ -39,11 +39,22 @@ async function submitEvidence(db, req) {
   var evidence = null;
   switch (req.body.type) {
     case "Article":
+      console.log("test");
       evidence = await createArticleEvidence(req.body);
+      break;
+    case "Proceedings":
+      evidence = await createProceedingsEvidence(req.body);
+      break
+    case "Book":
+      evidence = await createBookEvidence(req.body);
+      break;
+    default:
+      console.log(req.body);
   }
   const evidenceCollection = db.collection("Evidence");
 
   if (evidence != null) {
+    console.log(evidence);
     await evidenceCollection.insertMany([evidence]);
   } else {
     console.log("Evidence not found.");
@@ -55,4 +66,13 @@ async function createArticleEvidence(data) {
   return await Article.create(data);
 }
 
+async function createProceedingsEvidence(data) {
+  const Proceedings = require("./models/Proceedings");
+  return await Proceedings.create(data);
+}
+
+async function createBookEvidence(data) {
+  const Book = require("./models/Book");
+  return await Book.create(data);
+}
 module.exports = { searchEvidence, submitEvidence, connectToDatabase };
