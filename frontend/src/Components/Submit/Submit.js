@@ -32,7 +32,7 @@ export default function Submit() {
           );
         })}
         {renderForm(currentEvidenceType)}
-        {currentEvidenceType == "" ? <React.Fragment></React.Fragment> : <button className={"submit"} onClick={() => {
+        {currentEvidenceType === "" ? <React.Fragment></React.Fragment> : <button className={"submit"} onClick={() => {
           console.log(evidenceData);
           submitEvidenceData(evidenceData, currentEvidenceType);
         }}>

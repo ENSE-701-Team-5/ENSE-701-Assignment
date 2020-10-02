@@ -6,12 +6,12 @@ export default function Search(props) {
     return (
     <div>
     <form>
-        <div class="search">
+        <div className="search">
            <input type="text" name="search" id="search" placeholder="Search for evidence" required onChange={(e) => {
                setSearchQuery(e.target.value); 
            }}></input> 
         </div>
-        <div class="advanced-search">
+        <div className="advanced-search">
             <label>Advanced Search</label>
         </div>
         </form>

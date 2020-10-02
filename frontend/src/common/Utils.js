@@ -40,7 +40,7 @@ export async function readFile(e) {
   );
   const reader = new FileReader();
 
-  if (extenstion != "none") {
+  if (extenstion !== "none") {
     var data = await new Promise((resolve, reject) => {
       reader.onload = (event) => {
         resolve(event.target.result);
@@ -50,9 +50,9 @@ export async function readFile(e) {
         reject(err);
       };
 
-      if (extenstion == "pdf") {
+      if (extenstion === "pdf") {
         reader.readAsBinaryString(file);
-      } else if (extenstion == "bib") {
+      } else if (extenstion === "bib") {
         reader.readAsText(file);
       }
     }, console.log(file));

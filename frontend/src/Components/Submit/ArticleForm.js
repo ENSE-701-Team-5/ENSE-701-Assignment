@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import "./Submit.css";
 import BasicForm from "./BasicForm";
 export default function EvidenceForm(props) {

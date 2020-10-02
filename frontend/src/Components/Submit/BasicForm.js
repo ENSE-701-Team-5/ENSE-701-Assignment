@@ -15,7 +15,7 @@ export default function BasicForm(props) {
           console.log(e.target.value);
           var newData = props.evidenceData;
           newData.title = e.target.value;
-          console.log(newData)
+          console.log(newData);
           props.setEvidenceData(newData);
         }}
       ></input>
@@ -26,7 +26,12 @@ export default function BasicForm(props) {
         {props.evidenceData.authors.map((author, key) => {
           return (
             <React.Fragment key={key}>
-              <Author author={author} index={key} evidenceData={props.evidenceData} setEvidenceData={props.setEvidenceData} />
+              <Author
+                author={author}
+                index={key}
+                evidenceData={props.evidenceData}
+                setEvidenceData={props.setEvidenceData}
+              />
             </React.Fragment>
           );
         })}
@@ -97,8 +102,10 @@ export default function BasicForm(props) {
           onChange={async (e) => {
             var file = await readFile(e);
             var newData = props.evidenceData;
-            newData.file = {data: file[0], extension:file[1]};
-            props.setEvidenceData(newData);
+            if (file !== undefined) {
+              newData.file = { data: file[0], extension: file[1] };
+              props.setEvidenceData(newData);
+            }
           }}
         ></input>
       </div>
