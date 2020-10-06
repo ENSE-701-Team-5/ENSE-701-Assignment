@@ -1,4 +1,4 @@
-const { mongoose } = require("../Database");
+const { mongoose } = require("../app");
 const Schema = mongoose.Schema;
 
 const generalUserSchema = new Schema({
