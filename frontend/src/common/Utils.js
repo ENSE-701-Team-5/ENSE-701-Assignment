@@ -50,14 +50,12 @@ export async function readFile(e) {
         reject(err);
       };
 
-      if (extenstion === "pdf") {
-        reader.readAsBinaryString(file);
-      } else if (extenstion === "bib") {
+      if (extenstion === "bib") {
         reader.readAsText(file);
       }
     }, console.log(file));
     return [data, extenstion]
   } else {
-    alert("Invalid file type! Either upload a bibtex or pdf file.");
+    alert("Invalid file type! Upload a bibtex file!");
   }
 }

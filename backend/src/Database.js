@@ -61,6 +61,10 @@ async function submitEvidence(db, req) {
   }
 }
 
+async function registerUser(db, req) {
+
+}
+
 async function createArticleEvidence(data) {
   const Article = require("./models/Article");
   return await Article.create(data);
@@ -75,4 +79,5 @@ async function createBookEvidence(data) {
   const Book = require("./models/Book");
   return await Book.create(data);
 }
-module.exports = { searchEvidence, submitEvidence, connectToDatabase };
+
+module.exports = { searchEvidence, submitEvidence, connectToDatabase, registerUser };
