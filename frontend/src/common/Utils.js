@@ -52,10 +52,10 @@ export async function readFile(e) {
 
       if (extenstion === "bib") {
         reader.readAsText(file);
+      } else {
+        alert("Invalid file type! Upload a bibtex file!");
       }
     }, console.log(file));
-    return [data, extenstion]
-  } else {
-    alert("Invalid file type! Upload a bibtex file!");
+    return [data, extenstion];
   }
 }
