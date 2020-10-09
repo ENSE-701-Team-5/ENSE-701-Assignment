@@ -16,6 +16,7 @@ export default function BasicForm(props) {
             type={"text"}
             id={"title"}
             className={"titleInput"}
+            defaultValue={props.evidenceData.title}
             onChange={(e) => {
               console.log(e.target.value);
               var newData = props.evidenceData;
@@ -67,7 +68,7 @@ export default function BasicForm(props) {
               type={"number"}
               id={"year"}
               className={"titleInput"}
-              value={props.evidenceData.year}
+              defaultValue={props.evidenceData.year}
               onChange={(e) => {
                 var newData = props.evidenceData;
                 newData.year = e.target.value;
@@ -85,7 +86,7 @@ export default function BasicForm(props) {
               type={"text"}
               id={"month"}
               className={"titleInput"}
-              value={props.evidenceData.month}
+              defaultValue={props.evidenceData.month}
               onChange={(e) => {
                 var newData = props.evidenceData;
                 newData.month = e.target.value;
@@ -103,7 +104,7 @@ export default function BasicForm(props) {
               type={"text"}
               id={"doi"}
               className={"titleInput"}
-              value={props.evidenceData.doi}
+              defaultValue={props.evidenceData.doi}
               onChange={(e) => {
                 var newData = props.evidenceData;
                 newData.doi = e.target.value;

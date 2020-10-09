@@ -19,7 +19,7 @@ export default function EvidenceForm(props) {
             type={"text"}
             id={"journal"}
             className={"titleInput"}
-            value={props.evidenceData.journal}
+            defaultValue={props.evidenceData.journal}
             onChange={(e) => {
               var newData = props.evidenceData;
               newData.journal = e.target.value;
@@ -39,7 +39,7 @@ export default function EvidenceForm(props) {
             type={"number"}
             id={"volume"}
             className={"titleInput"}
-            value={props.evidenceData.volume}
+            defaultValue={props.evidenceData.volume}
             onChange={(e) => {
               var newData = props.evidenceData;
               newData.volume = e.target.value;
@@ -59,7 +59,7 @@ export default function EvidenceForm(props) {
             type={"number"}
             id={"number"}
             className={"titleInput"}
-            value={props.evidenceData.number}
+            defaultValue={props.evidenceData.number}
             onChange={(e) => {
               var newData = props.evidenceData;
               newData.number = e.target.value;
@@ -79,7 +79,7 @@ export default function EvidenceForm(props) {
             type={"text"}
             id={"pages"}
             className={"titleInput"}
-            value={props.evidenceData.pages}
+            defaultValue={props.evidenceData.pages}
             onChange={(e) => {
               var newData = props.evidenceData;
               newData.pages = e.target.value;

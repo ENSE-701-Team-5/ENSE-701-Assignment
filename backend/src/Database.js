@@ -51,14 +51,27 @@ async function submitEvidence(db, req) {
     default:
       console.log(req.body);
   }
-  const evidenceCollection = db.collection("Evidence");
+  const moderationQueueCollection = db.collection("ModerationQueue");
 
   if (evidence != null) {
     console.log(evidence);
-    await evidenceCollection.insertMany([evidence]);
+    await moderationQueueCollection.insertMany([evidence]);
   } else {
     console.log("Evidence not found.");
   }
+}
+
+async function getModerationQueue(db, res) {
+  const moderationQueueCollection = db.collection("ModerationQueue");
+  
+  moderationQueueCollection.find({}).toArray(function(err, queue) {
+    if(queue !== undefined) {
+      res.send(queue);
+    } else {
+      res.send({"err" : "There was an error in getting the moderation queue"});
+    }
+  });
+  
 }
 
 async function registerUser(db, req) {
@@ -80,4 +93,4 @@ async function createBookEvidence(data) {
   return await Book.create(data);
 }
 
-module.exports = { searchEvidence, submitEvidence, connectToDatabase, registerUser };
+module.exports = { searchEvidence, submitEvidence, connectToDatabase, registerUser, getModerationQueue };

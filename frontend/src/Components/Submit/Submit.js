@@ -9,6 +9,7 @@ export default function Submit() {
   const [evidenceData, setEvidenceData] = useState({
     title: "",
     authors: [""],
+    status: "To be moderated"
   });
 
   return (
