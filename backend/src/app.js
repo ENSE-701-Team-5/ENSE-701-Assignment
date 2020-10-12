@@ -31,6 +31,8 @@ var router = express.Router();
 router.use("/evidence", require("./routes/Evidence"));
 router.use("/search", require("./routes/Search"));
 router.use("/submit", require("./routes/Submit"));
+router.use("/register", require("./routes/Register"));
+router.use("/moderate", require("./routes/Moderate"));
 app.use("/api", router);
 
 app.listen(PORT, () => {

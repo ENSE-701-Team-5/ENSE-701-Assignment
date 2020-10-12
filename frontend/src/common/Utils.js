@@ -12,10 +12,10 @@ export const RESEARCH_METHOS = {
   SURVEY: "Survey",
 };
 
-export function submitEvidenceData(jsonData, evidenceType) {
+export function sendEvidenceData(jsonData, evidenceType, apiEndpoint) {
   jsonData.submittedDate = new Date();
   jsonData.type = evidenceType;
-  fetch("/api/submit/", {
+  fetch(apiEndpoint, {
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json",
@@ -50,14 +50,12 @@ export async function readFile(e) {
         reject(err);
       };
 
-      if (extenstion === "pdf") {
-        reader.readAsBinaryString(file);
-      } else if (extenstion === "bib") {
+      if (extenstion === "bib") {
         reader.readAsText(file);
+      } else {
+        alert("Invalid file type! Upload a bibtex file!");
       }
     }, console.log(file));
-    return [data, extenstion]
-  } else {
-    alert("Invalid file type! Either upload a bibtex or pdf file.");
+    return [data, extenstion];
   }
 }

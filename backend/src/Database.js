@@ -25,7 +25,7 @@ function connectToDatabase(username, password) {
 function searchEvidence(db, res, text) {
   var regex = new RegExp(text, "i"); // 'i' makes it case insensitive
   const collection = db.collection("Evidence");
-  collection.find({ $or: [{ title: regex }] }).toArray((err, evidence) => {
+  collection.find({ $or: [{ title: regex, doi : regex }] }).toArray((err, evidence) => {
     if (err) {
       evidence = { message: "An error occured" };
     } else if (evidence.length == 0) {
@@ -35,11 +35,10 @@ function searchEvidence(db, res, text) {
   });
 }
 
-async function submitEvidence(db, req) {
+async function sendEvidence(db, req, collectionName) {
   var evidence = null;
   switch (req.body.type) {
     case "Article":
-      console.log("test");
       evidence = await createArticleEvidence(req.body);
       break;
     case "Proceedings":
@@ -51,14 +50,41 @@ async function submitEvidence(db, req) {
     default:
       console.log(req.body);
   }
-  const evidenceCollection = db.collection("Evidence");
+  const collection = db.collection(collectionName);
 
   if (evidence != null) {
-    console.log(evidence);
-    await evidenceCollection.insertMany([evidence]);
+    await collection.insertMany([evidence]);
   } else {
-    console.log("Evidence not found.");
+    console.log("No evidence!");
   }
+}
+
+async function getModerationQueue(db, res) {
+  const moderationQueueCollection = db.collection("ModerationQueue");
+  
+  moderationQueueCollection.find({}).toArray(function(err, queue) {
+    if(queue !== undefined) {
+      res.send(queue);
+    } else {
+      res.send({"err" : "There was an error in getting the moderation queue"});
+    }
+  });
+  
+}
+
+async function removeEvidenceByID(id, db, collectionName) {
+  const collection = db.collection(collectionName);
+  collection.deleteOne({_id: id}, function(err, results) {
+    if (err){
+      console.log("failed");
+      throw err;
+    }
+    console.log("success");
+ });
+}
+
+async function registerUser(db, req) {
+
 }
 
 async function createArticleEvidence(data) {
@@ -75,4 +101,5 @@ async function createBookEvidence(data) {
   const Book = require("./models/Book");
   return await Book.create(data);
 }
-module.exports = { searchEvidence, submitEvidence, connectToDatabase };
+
+module.exports = { searchEvidence, sendEvidence, removeEvidenceByID, connectToDatabase, registerUser, getModerationQueue };
