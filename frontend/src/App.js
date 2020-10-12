@@ -7,6 +7,8 @@ import Login from "./Components/Login";
 import Register from "./Components/Register";
 import Terms from "./Components/Terms";
 import Privacy from "./Components/Privacy";
+import Submit from "./Components/Submit/Submit";
+import Moderate from "./Components/Moderate/Moderate";
 import "./App.css";
 
 export default function App() {
@@ -25,8 +27,14 @@ export default function App() {
             <Route path="/about">
               <About />
             </Route>
+            <Route path="/submit">
+              <Submit />
+            </Route>
             <Route path="/register">
               <Register />
+            </Route>
+            <Route path="/moderate">
+              <Moderate />
             </Route>
             <Route path="/login">
               <Login />

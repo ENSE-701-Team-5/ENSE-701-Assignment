@@ -11,3 +11,9 @@
   text-align: justify;
   margin-right: 2%;
 }
+
+.evidenceType {
+  background-color: lightgray;
+  border-color: ivory;
+  color: black;
+}
