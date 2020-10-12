@@ -1,34 +1,22 @@
 import React from "react";
 import "./Login.css";
+import {GLogin} from '../Google_Login/GLogin';
+import {Logout} from '../Google_Login/Logout';
 
 export default function Login() {
-  return (
-    <div>
-      <h2>Login</h2>
-      <div className="container">
-        <form>
-        <label for="uname">
-          <b>Username</b>
-        </label>
-        <input type="text" placeholder="Enter Username" name="uname" required />
 
-        <label for="psw">
-          <b>Password</b>
-        </label>
-        <input
-          type="password"
-          placeholder="Enter Password"
-          name="psw"
-          required
-        />
+    return (
+    
+      <div>
+        <h2>Login</h2>
 
-        <button type="submit">Login</button>
-        <label>
-          <input type="checkbox" checked="checked" name="remember" /> Remember
-          me
-        </label>
-        </form>
+        <div class="g-signin2" data-onsuccess="onSignIn">
+          <GLogin />
+          <Logout />
+        </div>
+  
+        
       </div>
-    </div>
-  );
+      
+    );  
 }
