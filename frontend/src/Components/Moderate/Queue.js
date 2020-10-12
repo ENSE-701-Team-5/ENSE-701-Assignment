@@ -10,12 +10,23 @@ export default function Queue(props) {
         }}
       >
         Load Queue
-      </button>      <div  className={"scrollable-div"}>
+      </button>{" "}
+      <div className={"scrollable-div"}>
         {queue === undefined ? (
           <div></div>
         ) : (
           queue.map((data, key) => {
-            return <Result key={key} data={data}></Result>;
+            return (
+              <span
+                onClick={() => {
+                  console.log("test");
+                  props.setCurrentEvidence(data);
+                }}
+                key={key}
+              >
+                <Result key={key} data={data} />
+              </span>
+            );
           })
         )}
       </div>

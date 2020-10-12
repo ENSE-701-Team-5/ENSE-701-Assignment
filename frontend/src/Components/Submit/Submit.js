@@ -1,20 +1,15 @@
 import React, { useState } from "react";
-import { EVIDENCE_TYPES, submitEvidenceData } from "../../common/Utils";
+import { EVIDENCE_TYPES, sendEvidenceData } from "../../common/Utils";
 import ArticleForm from "./ArticleForm";
 import ProceedingsForm from "./ProceedingsForm";
 import BookForm from "./BookForm";
 
-export default function Submit() {
+export default function Submit(props) {
   const [currentEvidenceType, setEvidenceType] = useState("");
-  const [evidenceData, setEvidenceData] = useState({
-    title: "",
-    authors: [""],
-    status: "To be moderated"
-  });
+  const [evidenceData, setEvidenceData] = useState({title: "", authors: [], status : "To be moderated"});
 
   return (
     <div>
-      <h2>Submit</h2>
       <div className="container">
         <h4>Evidence Type: {currentEvidenceType}</h4>
         {EVIDENCE_TYPES.map((data, key) => {
@@ -34,8 +29,7 @@ export default function Submit() {
         })}
         {renderForm(currentEvidenceType)}
         {currentEvidenceType === "" ? <React.Fragment></React.Fragment> : <button className={"submit"} onClick={() => {
-          console.log(evidenceData);
-          submitEvidenceData(evidenceData, currentEvidenceType);
+          sendEvidenceData(evidenceData, currentEvidenceType, "/api/submit/");
         }}>
           Submit
         </button>}

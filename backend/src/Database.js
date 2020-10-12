@@ -25,7 +25,7 @@ function connectToDatabase(username, password) {
 function searchEvidence(db, res, text) {
   var regex = new RegExp(text, "i"); // 'i' makes it case insensitive
   const collection = db.collection("Evidence");
-  collection.find({ $or: [{ title: regex }] }).toArray((err, evidence) => {
+  collection.find({ $or: [{ title: regex, doi : regex }] }).toArray((err, evidence) => {
     if (err) {
       evidence = { message: "An error occured" };
     } else if (evidence.length == 0) {
@@ -35,11 +35,10 @@ function searchEvidence(db, res, text) {
   });
 }
 
-async function submitEvidence(db, req) {
+async function sendEvidence(db, req, collectionName) {
   var evidence = null;
   switch (req.body.type) {
     case "Article":
-      console.log("test");
       evidence = await createArticleEvidence(req.body);
       break;
     case "Proceedings":
@@ -51,13 +50,12 @@ async function submitEvidence(db, req) {
     default:
       console.log(req.body);
   }
-  const moderationQueueCollection = db.collection("ModerationQueue");
+  const collection = db.collection(collectionName);
 
   if (evidence != null) {
-    console.log(evidence);
-    await moderationQueueCollection.insertMany([evidence]);
+    await collection.insertMany([evidence]);
   } else {
-    console.log("Evidence not found.");
+    console.log("No evidence!");
   }
 }
 
@@ -72,6 +70,17 @@ async function getModerationQueue(db, res) {
     }
   });
   
+}
+
+async function removeEvidenceByID(id, db, collectionName) {
+  const collection = db.collection(collectionName);
+  collection.deleteOne({_id: id}, function(err, results) {
+    if (err){
+      console.log("failed");
+      throw err;
+    }
+    console.log("success");
+ });
 }
 
 async function registerUser(db, req) {
@@ -93,4 +102,4 @@ async function createBookEvidence(data) {
   return await Book.create(data);
 }
 
-module.exports = { searchEvidence, submitEvidence, connectToDatabase, registerUser, getModerationQueue };
+module.exports = { searchEvidence, sendEvidence, removeEvidenceByID, connectToDatabase, registerUser, getModerationQueue };

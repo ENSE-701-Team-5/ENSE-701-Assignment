@@ -11,7 +11,7 @@ export default function BasicForm(props) {
             <h4>Title:</h4>
           </label>
         </div>
-        <div class="col-75">
+        <div className="col-75">
           <input
             type={"text"}
             id={"title"}
@@ -123,7 +123,6 @@ export default function BasicForm(props) {
           id="file"
           className={"custom-file-input"}
           name="file"
-          required
           onChange={async (e) => {
             var file = await readFile(e);
             var newData = props.evidenceData;
