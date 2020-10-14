@@ -18,10 +18,8 @@ export default function BasicForm(props) {
             className={"titleInput"}
             defaultValue={props.evidenceData.title}
             onChange={(e) => {
-              console.log(e.target.value);
               var newData = props.evidenceData;
               newData.title = e.target.value;
-              console.log(newData);
               props.setEvidenceData(newData);
             }}
           ></input>

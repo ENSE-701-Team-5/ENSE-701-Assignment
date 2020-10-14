@@ -26,6 +26,12 @@ const evidenceSchema = new Schema({
   submittedDate: {
     type: Date,
   },
+  acceptedDate: {
+    type: Date,
+  },
+  rejectedDate: {
+    type: Date,
+  },
   reviews: {
     type: [Review]
   },

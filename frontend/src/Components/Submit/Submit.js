@@ -29,6 +29,7 @@ export default function Submit(props) {
         })}
         {renderForm(currentEvidenceType)}
         {currentEvidenceType === "" ? <React.Fragment></React.Fragment> : <button className={"submit"} onClick={() => {
+          evidenceData.submittedDate = new Date();
           sendEvidenceData(evidenceData, currentEvidenceType, "/api/submit/");
         }}>
           Submit
@@ -38,7 +39,6 @@ export default function Submit(props) {
   );
 
   function renderForm(currentEvidenceType) {
-    console.log(currentEvidenceType);
     switch (currentEvidenceType) {
       case EVIDENCE_TYPES[0].name:
         return (

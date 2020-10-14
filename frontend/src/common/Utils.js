@@ -12,10 +12,9 @@ export const RESEARCH_METHOS = {
   SURVEY: "Survey",
 };
 
-export function sendEvidenceData(jsonData, evidenceType, apiEndpoint) {
-  jsonData.submittedDate = new Date();
+export async function sendEvidenceData(jsonData, evidenceType, apiEndpoint) {
   jsonData.type = evidenceType;
-  fetch(apiEndpoint, {
+  await fetch(apiEndpoint, {
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json",

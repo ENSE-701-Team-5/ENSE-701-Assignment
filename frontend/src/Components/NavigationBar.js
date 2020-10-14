@@ -8,6 +8,7 @@ export default function NavigationBar() {
       <Link to="/about"> About </Link>
       <Link to="/submit"> Submit </Link>
       <Link to="/moderate"> Moderate </Link>
+      <Link to="/analyse"> Analyse </Link>
       <Link to="/register"> Register </Link>
       <Link to="/login"> Login </Link>
       <Link to="/terms"> Terms of Use </Link>

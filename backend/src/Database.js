@@ -25,14 +25,16 @@ function connectToDatabase(username, password) {
 function searchEvidence(db, res, text) {
   var regex = new RegExp(text, "i"); // 'i' makes it case insensitive
   const collection = db.collection("Evidence");
-  collection.find({ $or: [{ title: regex, doi : regex }] }).toArray((err, evidence) => {
-    if (err) {
-      evidence = { message: "An error occured" };
-    } else if (evidence.length == 0) {
-      evidence = { message: "No results found" };
-    }
-    res.send(evidence);
-  });
+  collection
+    .find({ $or: [{ title: regex }] })
+    .toArray((err, evidence) => {
+      if (err) {
+        evidence = { message: "An error occured" };
+      } else if (evidence.length == 0) {
+        evidence = { message: "No results found" };
+      }
+      res.send(evidence);
+    });
 }
 
 async function sendEvidence(db, req, collectionName) {
@@ -43,7 +45,7 @@ async function sendEvidence(db, req, collectionName) {
       break;
     case "Proceedings":
       evidence = await createProceedingsEvidence(req.body);
-      break
+      break;
     case "Book":
       evidence = await createBookEvidence(req.body);
       break;
@@ -61,31 +63,29 @@ async function sendEvidence(db, req, collectionName) {
 
 async function getModerationQueue(db, res) {
   const moderationQueueCollection = db.collection("ModerationQueue");
-  
-  moderationQueueCollection.find({}).toArray(function(err, queue) {
-    if(queue !== undefined) {
+
+  moderationQueueCollection.find({}).toArray(function (err, queue) {
+    if (queue !== undefined) {
       res.send(queue);
     } else {
-      res.send({"err" : "There was an error in getting the moderation queue"});
+      res.send({ err: "There was an error in getting the moderation queue" });
     }
   });
-  
 }
 
-async function removeEvidenceByID(id, db, collectionName) {
-  const collection = db.collection(collectionName);
-  collection.deleteOne({_id: id}, function(err, results) {
-    if (err){
-      console.log("failed");
-      throw err;
+async function getAnalystQueue(db, res) {
+  const analystQueueCollection = db.collection("AnalystQueue");
+
+  analystQueueCollection.find({}).toArray(function (err, queue) {
+    if (queue !== undefined) {
+      res.send(queue);
+    } else {
+      res.send({ err: "There was an error in getting the moderation queue" });
     }
-    console.log("success");
- });
+  });
 }
 
-async function registerUser(db, req) {
-
-}
+async function registerUser(db, req) {}
 
 async function createArticleEvidence(data) {
   const Article = require("./models/Article");
@@ -102,4 +102,29 @@ async function createBookEvidence(data) {
   return await Book.create(data);
 }
 
-module.exports = { searchEvidence, sendEvidence, removeEvidenceByID, connectToDatabase, registerUser, getModerationQueue };
+async function moveRecordToCollection(
+  db,
+  orginalCollectionName,
+  newCollectionName,
+  id
+) {
+  console.log(id)
+  const orginalCollection = await db.collection(orginalCollectionName);
+  const newCollection = await db.collection(newCollectionName);
+
+  var doc = await orginalCollection.findOne({ });
+
+  orginalCollection.removeOne(doc);
+  newCollection.insertOne(doc);
+  console.log(doc);
+}
+
+module.exports = {
+  searchEvidence,
+  sendEvidence,
+  connectToDatabase,
+  registerUser,
+  getModerationQueue,
+  getAnalystQueue,
+  moveRecordToCollection,
+};
