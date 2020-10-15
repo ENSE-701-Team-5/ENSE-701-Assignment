@@ -22,11 +22,17 @@ export async function sendEvidenceData(jsonData, evidenceType, apiEndpoint) {
     method: "POST",
     body: JSON.stringify(jsonData),
   })
-    .then(function (res) {
-      console.log(res);
+    .then(async function (res) {
+      if(res.ok) {
+        var results = await res.json();
+        console.log(results);
+        if(results.message) {
+            alert(results.message);
+        }
+    }
     })
     .catch(function (res) {
-      console.log(res);
+      alert(res.message);
     });
 }
 

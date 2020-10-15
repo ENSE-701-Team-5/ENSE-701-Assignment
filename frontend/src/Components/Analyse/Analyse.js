@@ -17,7 +17,7 @@ export default function Analyse() {
           <div>
             <button
               onClick={() => {
-                currentEvidence.AnalysisCompletedDate = new Date();
+                currentEvidence.analysisCompletedDate = new Date();
                 currentEvidence.status = "Analysis complete";
                 sendEvidenceData(
                   currentEvidence,

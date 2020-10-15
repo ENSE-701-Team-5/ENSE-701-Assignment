@@ -25,20 +25,19 @@ function connectToDatabase(username, password) {
 function searchEvidence(db, res, text) {
   var regex = new RegExp(text, "i"); // 'i' makes it case insensitive
   const collection = db.collection("Evidence");
-  collection
-    .find({ $or: [{ title: regex }] })
-    .toArray((err, evidence) => {
-      if (err) {
-        evidence = { message: "An error occured" };
-      } else if (evidence.length == 0) {
-        evidence = { message: "No results found" };
-      }
-      res.send(evidence);
-    });
+  collection.find({ $or: [{ title: regex }] }).toArray((err, evidence) => {
+    if (err) {
+      evidence = { message: "An error occured" };
+    } else if (evidence.length == 0) {
+      evidence = { message: "No results found" };
+    }
+    res.send(evidence);
+  });
 }
 
-async function sendEvidence(db, req, collectionName) {
+async function sendEvidence(db, req, collectionName, res) {
   var evidence = null;
+  req.body._id = null;
   switch (req.body.type) {
     case "Article":
       evidence = await createArticleEvidence(req.body);
@@ -54,11 +53,14 @@ async function sendEvidence(db, req, collectionName) {
   }
   const collection = db.collection(collectionName);
 
+  var response = { message: "Success!" };
   if (evidence != null) {
     await collection.insertMany([evidence]);
   } else {
-    console.log("No evidence!");
+    response = { message: "There was an error!" };
   }
+
+  res.send(response);
 }
 
 async function getModerationQueue(db, res) {
@@ -80,7 +82,7 @@ async function getAnalystQueue(db, res) {
     if (queue !== undefined) {
       res.send(queue);
     } else {
-      res.send({ err: "There was an error in getting the moderation queue" });
+      res.send({ err: "There was an error in getting the analyst queue" });
     }
   });
 }
@@ -106,17 +108,19 @@ async function moveRecordToCollection(
   db,
   orginalCollectionName,
   newCollectionName,
-  id
+  id,
+  req,
+  res
 ) {
-  console.log(id)
   const orginalCollection = await db.collection(orginalCollectionName);
-  const newCollection = await db.collection(newCollectionName);
+  var ObjectId = require("mongodb").ObjectID;
+  var out = await orginalCollection.deleteOne({ _id: ObjectId(id) });
 
-  var doc = await orginalCollection.findOne({ });
-
-  orginalCollection.removeOne(doc);
-  newCollection.insertOne(doc);
-  console.log(doc);
+  if (out.deletedCount === 0) {
+    res.send({message: "There was an error!"});
+  } else {
+    await sendEvidence(db, req, newCollectionName, res);
+  }
 }
 
 module.exports = {
