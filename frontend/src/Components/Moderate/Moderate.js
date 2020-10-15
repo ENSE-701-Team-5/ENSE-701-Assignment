@@ -22,12 +22,17 @@ export default function Moderate() {
             {renderForm(currentEvidence.__t)}
             <button onClick={() => {
                 currentEvidence.status = "Accepted";
+                currentEvidence.acceptedDate = new Date();
+                console.log(currentEvidence)
                 sendEvidenceData(currentEvidence, currentEvidence.__t, "/api/submit/accept/")
+                setCurrentEvidence(undefined);
             }}>Accept</button>
             {" "}
             <button onClick={() => {
                 currentEvidence.status = "Rejected";
+                currentEvidence.rejectedDate = new Date();
                 sendEvidenceData(currentEvidence, currentEvidence.__t, "/api/submit/reject/")
+                setCurrentEvidence(undefined);
             }}>Reject</button>
           </div>
         )}

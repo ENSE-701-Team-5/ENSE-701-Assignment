@@ -25,7 +25,7 @@ function connectToDatabase(username, password) {
 function searchEvidence(db, res, text) {
   var regex = new RegExp(text, "i"); // 'i' makes it case insensitive
   const collection = db.collection("Evidence");
-  collection.find({ $or: [{ title: regex, doi : regex }] }).toArray((err, evidence) => {
+  collection.find({ $or: [{ title: regex }] }).toArray((err, evidence) => {
     if (err) {
       evidence = { message: "An error occured" };
     } else if (evidence.length == 0) {
@@ -35,15 +35,16 @@ function searchEvidence(db, res, text) {
   });
 }
 
-async function sendEvidence(db, req, collectionName) {
+async function sendEvidence(db, req, collectionName, res) {
   var evidence = null;
+  req.body._id = null;
   switch (req.body.type) {
     case "Article":
       evidence = await createArticleEvidence(req.body);
       break;
     case "Proceedings":
       evidence = await createProceedingsEvidence(req.body);
-      break
+      break;
     case "Book":
       evidence = await createBookEvidence(req.body);
       break;
@@ -52,40 +53,41 @@ async function sendEvidence(db, req, collectionName) {
   }
   const collection = db.collection(collectionName);
 
+  var response = { message: "Success!" };
   if (evidence != null) {
     await collection.insertMany([evidence]);
   } else {
-    console.log("No evidence!");
+    response = { message: "There was an error!" };
   }
+
+  res.send(response);
 }
 
 async function getModerationQueue(db, res) {
   const moderationQueueCollection = db.collection("ModerationQueue");
-  
-  moderationQueueCollection.find({}).toArray(function(err, queue) {
-    if(queue !== undefined) {
+
+  moderationQueueCollection.find({}).toArray(function (err, queue) {
+    if (queue !== undefined) {
       res.send(queue);
     } else {
-      res.send({"err" : "There was an error in getting the moderation queue"});
+      res.send({ err: "There was an error in getting the moderation queue" });
     }
   });
-  
 }
 
-async function removeEvidenceByID(id, db, collectionName) {
-  const collection = db.collection(collectionName);
-  collection.deleteOne({_id: id}, function(err, results) {
-    if (err){
-      console.log("failed");
-      throw err;
+async function getAnalystQueue(db, res) {
+  const analystQueueCollection = db.collection("AnalystQueue");
+
+  analystQueueCollection.find({}).toArray(function (err, queue) {
+    if (queue !== undefined) {
+      res.send(queue);
+    } else {
+      res.send({ err: "There was an error in getting the analyst queue" });
     }
-    console.log("success");
- });
+  });
 }
 
-async function registerUser(db, req) {
-
-}
+async function registerUser(db, req) {}
 
 async function createArticleEvidence(data) {
   const Article = require("./models/Article");
@@ -102,4 +104,31 @@ async function createBookEvidence(data) {
   return await Book.create(data);
 }
 
-module.exports = { searchEvidence, sendEvidence, removeEvidenceByID, connectToDatabase, registerUser, getModerationQueue };
+async function moveRecordToCollection(
+  db,
+  orginalCollectionName,
+  newCollectionName,
+  id,
+  req,
+  res
+) {
+  const orginalCollection = await db.collection(orginalCollectionName);
+  var ObjectId = require("mongodb").ObjectID;
+  var out = await orginalCollection.deleteOne({ _id: ObjectId(id) });
+
+  if (out.deletedCount === 0) {
+    res.send({message: "There was an error!"});
+  } else {
+    await sendEvidence(db, req, newCollectionName, res);
+  }
+}
+
+module.exports = {
+  searchEvidence,
+  sendEvidence,
+  connectToDatabase,
+  registerUser,
+  getModerationQueue,
+  getAnalystQueue,
+  moveRecordToCollection,
+};

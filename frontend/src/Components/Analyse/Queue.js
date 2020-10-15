@@ -33,7 +33,7 @@ export default function Queue(props) {
   );
 
   async function getQueue() {
-    await fetch("http://localhost:5000/api/moderate/", {
+    await fetch("http://localhost:5000/api/analyse/", {
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
