@@ -12,10 +12,9 @@ export const RESEARCH_METHOS = {
   SURVEY: "Survey",
 };
 
-export function submitEvidenceData(jsonData, evidenceType) {
-  jsonData.submittedDate = new Date();
+export async function sendEvidenceData(jsonData, evidenceType, apiEndpoint) {
   jsonData.type = evidenceType;
-  fetch("/api/submit/", {
+  await fetch(apiEndpoint, {
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json",
@@ -23,11 +22,17 @@ export function submitEvidenceData(jsonData, evidenceType) {
     method: "POST",
     body: JSON.stringify(jsonData),
   })
-    .then(function (res) {
-      console.log(res);
+    .then(async function (res) {
+      if(res.ok) {
+        var results = await res.json();
+        console.log(results);
+        if(results.message) {
+            alert(results.message);
+        }
+    }
     })
     .catch(function (res) {
-      console.log(res);
+      alert(res.message);
     });
 }
 
@@ -50,14 +55,12 @@ export async function readFile(e) {
         reject(err);
       };
 
-      if (extenstion === "pdf") {
-        reader.readAsBinaryString(file);
-      } else if (extenstion === "bib") {
+      if (extenstion === "bib") {
         reader.readAsText(file);
+      } else {
+        alert("Invalid file type! Upload a bibtex file!");
       }
     }, console.log(file));
-    return [data, extenstion]
-  } else {
-    alert("Invalid file type! Either upload a bibtex or pdf file.");
+    return [data, extenstion];
   }
 }

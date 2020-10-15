@@ -1,6 +1,6 @@
 const { mongoose } = require("../app");
 const Schema = mongoose.Schema;
-const GeneralUser = require("./GeneralUser").schema;
+const GeneralUser = require("./User").schema;
 
 const reviewSchema = new Schema({
   user: {

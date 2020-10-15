@@ -8,7 +8,9 @@ import Register from "./Components/Register";
 import Terms from "./Components/Terms";
 import Privacy from "./Components/Privacy";
 import Submit from "./Components/Submit/Submit";
+import Moderate from "./Components/Moderate/Moderate";
 import "./App.css";
+import Analyse from "./Components/Analyse/Analyse";
 
 export default function App() {
   return (
@@ -31,6 +33,12 @@ export default function App() {
             </Route>
             <Route path="/register">
               <Register />
+            </Route>
+            <Route path="/moderate">
+              <Moderate />
+            </Route>
+            <Route path="/analyse">
+              <Analyse />
             </Route>
             <Route path="/login">
               <Login />

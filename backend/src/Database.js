@@ -35,31 +35,59 @@ function searchEvidence(db, res, text) {
   });
 }
 
-async function submitEvidence(db, req) {
+async function sendEvidence(db, req, collectionName, res) {
   var evidence = null;
+  req.body._id = null;
   switch (req.body.type) {
     case "Article":
-      console.log("test");
       evidence = await createArticleEvidence(req.body);
       break;
     case "Proceedings":
       evidence = await createProceedingsEvidence(req.body);
-      break
+      break;
     case "Book":
       evidence = await createBookEvidence(req.body);
       break;
     default:
       console.log(req.body);
   }
-  const evidenceCollection = db.collection("Evidence");
+  const collection = db.collection(collectionName);
 
+  var response = { message: "Success!" };
   if (evidence != null) {
-    console.log(evidence);
-    await evidenceCollection.insertMany([evidence]);
+    await collection.insertMany([evidence]);
   } else {
-    console.log("Evidence not found.");
+    response = { message: "There was an error!" };
   }
+
+  res.send(response);
 }
+
+async function getModerationQueue(db, res) {
+  const moderationQueueCollection = db.collection("ModerationQueue");
+
+  moderationQueueCollection.find({}).toArray(function (err, queue) {
+    if (queue !== undefined) {
+      res.send(queue);
+    } else {
+      res.send({ err: "There was an error in getting the moderation queue" });
+    }
+  });
+}
+
+async function getAnalystQueue(db, res) {
+  const analystQueueCollection = db.collection("AnalystQueue");
+
+  analystQueueCollection.find({}).toArray(function (err, queue) {
+    if (queue !== undefined) {
+      res.send(queue);
+    } else {
+      res.send({ err: "There was an error in getting the analyst queue" });
+    }
+  });
+}
+
+async function registerUser(db, req) {}
 
 async function createArticleEvidence(data) {
   const Article = require("./models/Article");
@@ -75,4 +103,32 @@ async function createBookEvidence(data) {
   const Book = require("./models/Book");
   return await Book.create(data);
 }
-module.exports = { searchEvidence, submitEvidence, connectToDatabase };
+
+async function moveRecordToCollection(
+  db,
+  orginalCollectionName,
+  newCollectionName,
+  id,
+  req,
+  res
+) {
+  const orginalCollection = await db.collection(orginalCollectionName);
+  var ObjectId = require("mongodb").ObjectID;
+  var out = await orginalCollection.deleteOne({ _id: ObjectId(id) });
+
+  if (out.deletedCount === 0) {
+    res.send({message: "There was an error!"});
+  } else {
+    await sendEvidence(db, req, newCollectionName, res);
+  }
+}
+
+module.exports = {
+  searchEvidence,
+  sendEvidence,
+  connectToDatabase,
+  registerUser,
+  getModerationQueue,
+  getAnalystQueue,
+  moveRecordToCollection,
+};

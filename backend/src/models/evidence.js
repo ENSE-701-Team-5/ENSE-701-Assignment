@@ -17,7 +17,7 @@ const evidenceSchema = new Schema({
     type: String,
   },
   doi: {
-    type: String,
+    type: String
   },
   file: {
     data: Buffer,
@@ -26,14 +26,26 @@ const evidenceSchema = new Schema({
   submittedDate: {
     type: Date,
   },
+  acceptedDate: {
+    type: Date,
+  },
+  rejectedDate: {
+    type: Date,
+  },
+  AnalysisCompletedDate: {
+    type: Date,
+  },
   reviews: {
-    type: [Review],
+    type: [Review]
   },
   researchDesign: {
-    type: ResearchDesign,
+    type: ResearchDesign
   },
   avgRating: {
-    type: Number,
+    type: Number
   },
+  status: {
+    type: String
+  }
 });
 module.exports = mongoose.model("Evidence", evidenceSchema);

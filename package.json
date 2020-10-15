@@ -5,7 +5,8 @@
   "dependencies": {
     "chai": "^4.2.0",
     "dotenv": "^8.2.0",
-    "mocha": "^8.1.1"
+    "mocha": "^8.1.1",
+    "react-google-login": "^5.1.21"
   },
   "scripts": {
     "test": "cd backend && npm install && mocha",
