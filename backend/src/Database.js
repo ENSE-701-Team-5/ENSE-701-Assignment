@@ -25,7 +25,7 @@ function connectToDatabase(username, password) {
 function searchEvidence(db, res, text) {
   var regex = new RegExp(text, "i"); // 'i' makes it case insensitive
   const collection = db.collection("Evidence");
-  collection.find({ $or: [{ title: regex }] }).toArray((err, evidence) => {
+  collection.find({ $or: [{ title: regex }, {doi: regex}, {authors: regex}] }).toArray((err, evidence) => {
     if (err) {
       evidence = { message: "An error occured" };
     } else if (evidence.length == 0) {
